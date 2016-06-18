@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
+=======
+  devise_for :users
+>>>>>>> c640f392c75ab7a631006ca723c5878f14377f0f
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+<<<<<<< HEAD
 
+=======
+  root 'players#home'
+>>>>>>> c640f392c75ab7a631006ca723c5878f14377f0f
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
