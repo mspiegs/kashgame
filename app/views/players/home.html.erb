@@ -1,9 +1,9 @@
+<% @user.rounds.each do |round| %>
 <div class="row">
   <div class="col-lg-6">
-  Hello from players
-  </div>
-  <div class="col-lg-6">
-  Hello from players
+    <ul>
+      <li><%= round.name %></li>
+    </ul>
   </div>
 </div>
-<%= @user.email %>
+<% end %>
