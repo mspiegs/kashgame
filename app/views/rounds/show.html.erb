@@ -15,7 +15,7 @@
   <tbody>
     <% @round.users.each do |user| %>
       <tr>
-        <td><%= user.email %></td>
+        <td><%= user.first_name %></td>
         <% @round.course.holes.each do |hole| %>
           <td>
             <%= form_for [hole, Score.new] do |f| %>
