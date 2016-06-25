@@ -1,0 +1,29 @@
+<%= @round.name %> Played at <%= @round.course.name %> golf club
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <% @round.course.holes.each do |hole| %>
+        <th>
+          <p>Hole <%= hole.number %></p>
+          <p>Par <%= hole.par %></p>
+          <p><%= hole.length %> yards</p>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @round.users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <% @round.course.holes.each do |hole| %>
+          <td>
+            <%= form_for [hole, Score.new] do |f| %>
+              <%= f.text_field :score, style: "width: 30px" %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
