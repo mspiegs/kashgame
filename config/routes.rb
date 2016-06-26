@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   resources :holes do
     resources :scores
   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :rounds, only: [:index, :show]
+    end
+  end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
