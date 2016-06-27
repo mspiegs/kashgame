@@ -5,8 +5,46 @@ var ViewRound = React.createClass({
       round: [],
       course: [],
       holes: [],
-      users: []
+      users: [],
+      score: ''
     }
+  },
+
+  handleScoreChange: function (e) {
+    console.log(e.target.getAttribute('data-hole'));
+    var hole = e.target.getAttribute('data-hole');
+    var score = e.target.value;
+    var data = {number: score, hole_id: hole};
+    $.ajax({
+      url: '/api/v1/scores',
+      dataType: 'json',
+      type: 'POST',
+      data: data,
+      success: function(data) {
+        e.target.value = data.number;
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  handleSubmit: function() {
+    var hole = e.target.getAttribute('data-hole');
+    var score = this.state.score;
+    var data = {number: score, hole_id: hole};
+    $.ajax({
+      url: '/api/v1/scores',
+      dataType: 'json',
+      type: 'POST',
+      data: data,
+      success: function(data) {
+        this.setState({score: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
   },
 
   componentDidMount: function() {
@@ -35,8 +73,11 @@ var ViewRound = React.createClass({
               <input
                 type="text"
                 placeholder="#"
-                onChange={this.handleAuthorChange}
+                data-hole={hole.number}
+                value={this.state.score}
+                onChange={this.handleScoreChange}
               />
+              <input type="submit" value="Post" />
             </form>
           </td>
         )
