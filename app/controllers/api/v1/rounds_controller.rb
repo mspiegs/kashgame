@@ -4,7 +4,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
   end
 
   def show
-    respond_with Round.find(params[:id])
+    respond_with Round.find(params[:id]), include: {:users => {}, :course => {include: :holes}}
   end
 
   def create
