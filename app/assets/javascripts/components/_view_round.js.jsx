@@ -14,7 +14,8 @@ var ViewRound = React.createClass({
     console.log(e.target.getAttribute('data-hole'));
     var hole = e.target.getAttribute('data-hole');
     var score = e.target.value;
-    var data = {number: score, hole_id: hole};
+    var user = e.target.getAttribute('data-user');
+    var data = {number: score, hole_id: hole, user_id: user};
     $.ajax({
       url: '/api/v1/scores',
       dataType: 'json',
@@ -30,21 +31,7 @@ var ViewRound = React.createClass({
   },
 
   handleSubmit: function() {
-    var hole = e.target.getAttribute('data-hole');
-    var score = this.state.score;
-    var data = {number: score, hole_id: hole};
-    $.ajax({
-      url: '/api/v1/scores',
-      dataType: 'json',
-      type: 'POST',
-      data: data,
-      success: function(data) {
-        this.setState({score: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+
   },
 
   componentDidMount: function() {
@@ -73,11 +60,11 @@ var ViewRound = React.createClass({
               <input
                 type="text"
                 placeholder="#"
+                data-user={user.id}
                 data-hole={hole.number}
                 value={this.state.score}
                 onChange={this.handleScoreChange}
               />
-              <input type="submit" value="Post" />
             </form>
           </td>
         )
