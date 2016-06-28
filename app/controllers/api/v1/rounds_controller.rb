@@ -21,6 +21,18 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with item, json: item
   end
 
+  def get_scores
+    @round = Round.find(params[:round_id])
+    scores_hash = {}
+    @round.users.each do |player|
+      scores = player.scores.where(round_id: @round.id)
+      player_scores = {}
+      scores.each {|score| player_scores[Hole.find(score.hole_id).number] = score.number  }
+      scores_hash[player.first_name] = player_scores
+    end
+    respond_with scores_hash
+  end
+
   private
 
   def item_params
