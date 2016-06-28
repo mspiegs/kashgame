@@ -8,14 +8,17 @@ var ViewRound = React.createClass({
       users: [],
       score: ''
     }
+
   },
 
-  handleScoreChange: function (e) {
-    console.log(e.target.getAttribute('data-hole'));
-    var hole = e.target.getAttribute('data-hole');
-    var score = e.target.value;
-    var user = e.target.getAttribute('data-user');
-    var data = {number: score, hole_id: hole, user_id: user};
+  handleScoreChange: function (name, e) {
+    var hole = {};
+    var score = {};
+    var user = {};
+    hole[name] = e.target.getAttribute('data-hole');
+    score[name] = e.target.value;
+    user[name] = e.target.getAttribute('data-user');
+    var data = {number: score[name], hole_id: hole[name], user_id: user[name], round_id: this.state.round.id};
     $.ajax({
       url: '/api/v1/scores',
       dataType: 'json',
@@ -36,9 +39,7 @@ var ViewRound = React.createClass({
 
   componentDidMount: function() {
     var url = '/api/v1/rounds/' + this.props.round + '.json';
-    console.log(url);
     $.getJSON(url, (response) => { this.setState({ round: response, course: response.course, holes: response.course.holes, users: response.users })});
-    console.log(this.state.round);
   },
 
   render() {
@@ -54,17 +55,16 @@ var ViewRound = React.createClass({
 
     var users = this.state.users.map((user, id) => {
       var selects = this.state.holes.map((hole, id) => {
-        var hole_score = 0;
-        var url = '/api/v1/scores?user_id=' + user.id + '&hold_id=' + hole.id + '&round_id=' + this.state.round.id;
+        var url = '/api/v1/scores?user_id=' + user.id + '&hole_id=' + hole.id + '&round_id=' + this.state.round.id;
+        var hole_score = [];
         $.ajax({
           async: false,
           url: url,
           success: function(data) {
-            console.log(data.number);
-            hole_score = data.number;
+            hole_score = data;
+            console.log(hole_score[0]);
           }
         });
-        console.log(hole_score);
         return (
           <td>
             <form className="" onSubmit={this.handleSubmit}>
@@ -73,8 +73,8 @@ var ViewRound = React.createClass({
                 placeholder="#"
                 data-user={user.id}
                 data-hole={hole.number}
-                value={hole_score}
-                onChange={this.handleScoreChange}
+                value={hole_score[0].number}
+                onChange={this.handleScoreChange.bind(this, 'input' + user.id + hole.id)}
               />
             </form>
           </td>
@@ -89,7 +89,6 @@ var ViewRound = React.createClass({
         </tr>
       )
     });
-    console.log(holes);
     return (
       <div>
         <h1>{this.state.round.name} played at {this.state.course.name}</h1>

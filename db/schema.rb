@@ -50,6 +50,12 @@ ActiveRecord::Schema.define(version: 20160627211337) do
     t.integer  "par"
   end
 
+  create_table "players", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rounds", force: :cascade do |t|
     t.string   "name"
     t.date     "date"
@@ -91,6 +97,8 @@ ActiveRecord::Schema.define(version: 20160627211337) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "access_token"
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
