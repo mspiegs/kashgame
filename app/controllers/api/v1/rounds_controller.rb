@@ -8,7 +8,10 @@ class Api::V1::RoundsController < Api::V1::BaseController
   end
 
   def create
-    respond_with :api, :v1, Item.create(item_params)
+    @users = User.find(params[:user_ids])
+    @round = Round.create(round_params)
+    @round.users << @users
+    respond_with :api, :v1, @round
   end
 
   def destroy
@@ -35,7 +38,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
 
   private
 
-  def item_params
+  def round_params
     params.require(:round).permit(:id, :name, :date, :course_id)
   end
 end

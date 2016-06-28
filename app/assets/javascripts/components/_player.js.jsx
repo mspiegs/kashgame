@@ -10,6 +10,11 @@ var Player = React.createClass({
     this.setState({ view: "selectedRound", round: round});
   },
 
+  setBackToRounds() {
+    console.log('from players');
+    this.setState({ view: "playersround"});
+  },
+
   render(){
     if (this.state.view === 'playersround') {
       return (
@@ -17,7 +22,7 @@ var Player = React.createClass({
       )
     } else if (this.state.view === 'selectedRound') {
       return (
-        <ViewRound round={this.state.round}/>
+        <ViewRound round={this.state.round} clickBackToRounds={this.setBackToRounds} />
       )
     }
   }

@@ -39,6 +39,12 @@ var ViewRound = React.createClass({
     $.getJSON(url, (response) => { this.setState({ scores: response })});
   },
 
+  clickBackToRounds: function(e){
+    e.preventDefault();
+    console.log("clicked");
+    this.props.clickBackToRounds();
+  },
+
   componentDidMount: function() {
     var url = '/api/v1/rounds/' + this.props.round + '.json';
     $.getJSON(url, (response) => { this.setState({ round: response, course: response.course, holes: response.course.holes, users: response.users })});
@@ -87,6 +93,7 @@ var ViewRound = React.createClass({
     return (
       <div>
         <h1>{this.state.round.name} played at {this.state.course.name}</h1>
+        <p className="back_link" onClick={this.clickBackToRounds}>back to rounds</p>
         <table className="table">
           <thead>
             <tr>
