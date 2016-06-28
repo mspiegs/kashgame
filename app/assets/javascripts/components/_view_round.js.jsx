@@ -54,6 +54,17 @@ var ViewRound = React.createClass({
 
     var users = this.state.users.map((user, id) => {
       var selects = this.state.holes.map((hole, id) => {
+        var hole_score = 0;
+        var url = '/api/v1/scores?user_id=' + user.id + '&hold_id=' + hole.id + '&round_id=' + this.state.round.id;
+        $.ajax({
+          async: false,
+          url: url,
+          success: function(data) {
+            console.log(data.number);
+            hole_score = data.number;
+          }
+        });
+        console.log(hole_score);
         return (
           <td>
             <form className="" onSubmit={this.handleSubmit}>
@@ -62,7 +73,7 @@ var ViewRound = React.createClass({
                 placeholder="#"
                 data-user={user.id}
                 data-hole={hole.number}
-                value={this.state.score}
+                value={hole_score}
                 onChange={this.handleScoreChange}
               />
             </form>
