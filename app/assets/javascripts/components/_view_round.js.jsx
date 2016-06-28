@@ -45,20 +45,6 @@ var ViewRound = React.createClass({
     this.getScores();
   },
 
-  getScore: function(user, hole) {
-    var url = '/api/v1/scores?user_id=' + user + '&hole_id=' + hole + '&round_id=' + this.state.round.id;
-    var hole_score = [];
-    $.ajax({
-      async: false,
-      url: url,
-      success: function(data) {
-        hole_score = data;
-        console.log(hole_score[0]);
-        return hole_score;
-      }
-    });
-  },
-
   render() {
     var holes = this.state.holes.map((hole, id) => {
       return (
