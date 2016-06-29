@@ -8,7 +8,7 @@ var Round = React.createClass({
   },
 
   render() {
-    var rounds = this.state.rounds.map((round, id) => {
+    var rounds = this.props.rounds.map((round, id) => {
       return (
         <li key={id}><a href='#' onClick={this.clickRound.bind(this, round.id)}>{round.name}</a></li>
         )

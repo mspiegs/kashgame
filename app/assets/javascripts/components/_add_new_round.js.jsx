@@ -2,7 +2,8 @@ var AddNewRound = React.createClass({
   getInitialState: function() {
     return {
       roundName: "",
-      courseId: 0
+      courseId: 0,
+      courses: []
     }
   },
 
@@ -17,6 +18,8 @@ var AddNewRound = React.createClass({
     this.props.onSubmit({ name: roundName, course_id: courseId, user_ids: [1,2]});
     this.setState({ roundName: "", courseId: 0 });
   },
+
+  get
 
   render() {
     return (
