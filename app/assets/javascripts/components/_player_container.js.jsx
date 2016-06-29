@@ -52,7 +52,7 @@ var PlayerContainer = React.createClass({
     return (
       <div>
         <Round clickRound={this.clickRound} rounds={this.state.rounds} />
-        <p onClick={this.addNewRoundButton} >Add New Round</p>
+        <button onClick={this.addNewRoundButton} className="btn btn-default btn-md">Add New Round</button>
         {this.state.addNewRound ? <AddNewRound courses={this.state.courses} onSubmit={this.submitNewRound}/> : null}
       </div>
     )
