@@ -1,6 +1,8 @@
 var Round = React.createClass({
   getInitialState() {
-    return { rounds: this.props.rounds }
+    return {
+      rounds: this.props.rounds
+    }
   },
 
   clickRound(round){
@@ -27,6 +29,7 @@ var Round = React.createClass({
           {rounds}
         </ul>
       </div>
+
     )
   }
 });

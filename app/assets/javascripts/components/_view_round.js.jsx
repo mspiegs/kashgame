@@ -7,6 +7,7 @@ var ViewRound = React.createClass({
       holes: [],
       users: [],
       scores: {},
+      games: []
     }
 
   },
@@ -105,7 +106,14 @@ var ViewRound = React.createClass({
             {users}
           </tbody>
         </table>
+
+
+        <GamesContainer  />
+
       </div>
+
+
+
 
     )
   }
