@@ -4,7 +4,9 @@ var AddNewRound = React.createClass({
       roundName: "",
       courseId: 0,
       courses: this.props.courses,
-      selected_course: ""
+      selected_course: "",
+      golf_buddies: this.props.courses,
+      selected_golfers: []
     }
   },
 
@@ -13,15 +15,21 @@ var AddNewRound = React.createClass({
   },
 
   handleSubmit: function(e) {
-    e.preventDefault;
+    e.preventDefault();
     var roundName = this.state.roundName.trim();
     var courseId = Number(this.state.selected_course);
-    this.props.onSubmit({ name: roundName, course_id: courseId, user_ids: [1,2]});
+    var user_ids = this.state.selected_golfers;
+    this.props.onSubmit({ name: roundName, course_id: courseId, user_ids: user_ids});
     this.setState({ roundName: "", courseId: 0 });
   },
 
   handleCourseSelection: function(e) {
     this.setState({ selected_course: e.target.value});
+  },
+
+  handleGolferSelection: function(e) {
+    e.preventDefault();
+    this.setState({ selected_golfer: this.state.selected_golfers.push(Number(e.target.value)) });
   },
 
   render() {
@@ -30,6 +38,11 @@ var AddNewRound = React.createClass({
     var select_options = Object.keys(course_holder).map(function (course) {
       return(
         <option value={course_holder[course]}>{course}</option>
+      )
+    });
+    var golfers = this.props.golf_buddies.map((golfer, id) => {
+      return(
+        <option onClick={this.handleGolferSelection} value={golfer.id}>{golfer.first_name}</option>
       )
     });
     return (
@@ -43,6 +56,10 @@ var AddNewRound = React.createClass({
         <select name="course" id="course" onChange={this.handleCourseSelection}>
           <option disabled selected value> -- select an option -- </option>
           {select_options}
+        </select>
+        <select multiple name="golfers" id="golfer">
+          <option disabled selected value> -- select an option -- </option>
+          {golfers}
         </select>
         <button className="btn btn-primary" type="submit" value="Post">Add Round</button>
       </form>
