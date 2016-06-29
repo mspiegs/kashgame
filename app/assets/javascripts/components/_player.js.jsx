@@ -21,7 +21,7 @@ var Player = React.createClass({
   render(){
     if (this.state.view === 'playersround') {
       return (
-        <PlayerContainer submitNewRound={this.submitNewRound} addNewRoundButton={this.addNewRoundButton} clickRound={this.clickRound} />
+        <PlayerContainer current_user={this.props.current_user} submitNewRound={this.submitNewRound} addNewRoundButton={this.addNewRoundButton} clickRound={this.clickRound} />
       )
     } else if (this.state.view === 'selectedRound') {
       return (

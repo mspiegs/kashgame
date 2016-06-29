@@ -20,3 +20,30 @@
   cursor: pointer;
   color: blue;
 }
+
+.rounds-header {
+
+  p {
+    padding: 10px 15px 10px 15px;
+  }
+
+}
+
+.rounds-list {
+  padding-left: 0px;
+  margin-top: 10px;
+  li {
+    list-style: none;
+    border: 1px solid #DCDCDC;
+    padding: 15px 10px 15px 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 11px;
+
+    a {
+      font-size: 20px;
+      margin-right: 20px;
+    }
+  }
+
+}

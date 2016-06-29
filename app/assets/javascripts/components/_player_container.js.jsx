@@ -39,6 +39,7 @@ var PlayerContainer = React.createClass({
       data: round,
       success: function(data) {
         this.getRounds();
+        this.setState({ addNewRound: false});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -53,9 +54,9 @@ var PlayerContainer = React.createClass({
   render() {
     return (
       <div>
+        <button onClick={this.addNewRoundButton} style={{marginBottom: '15px', marginTop: '15px'}}className="btn btn-default btn-md m-b-10">Add New Round</button>
+        {this.state.addNewRound ? <AddNewRound current_user={this.props.current_user} courses={this.state.courses} onSubmit={this.submitNewRound} golf_buddies={this.state.golf_buddies} /> : null}
         <Round clickRound={this.clickRound} rounds={this.state.rounds} />
-        <button onClick={this.addNewRoundButton} className="btn btn-default btn-md">Add New Round</button>
-        {this.state.addNewRound ? <AddNewRound courses={this.state.courses} onSubmit={this.submitNewRound} golf_buddies={this.state.golf_buddies} /> : null}
       </div>
     )
   }

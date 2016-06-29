@@ -1,7 +1,7 @@
 var PageContainer = React.createClass({
   render() {
     return (
-      <Player />
+      <Player current_user={this.props.current_user}/>
     )
   }
 });

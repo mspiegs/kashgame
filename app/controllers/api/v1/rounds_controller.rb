@@ -1,6 +1,6 @@
 class Api::V1::RoundsController < Api::V1::BaseController
   def index
-    respond_with Round.all
+    respond_with current_user.rounds, include: {:users => {}, :course => {include: :holes}}
   end
 
   def show
