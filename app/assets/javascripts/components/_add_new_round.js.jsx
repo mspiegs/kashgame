@@ -3,7 +3,8 @@ var AddNewRound = React.createClass({
     return {
       roundName: "",
       courseId: 0,
-      courses: []
+      courses: this.props.courses,
+      selected_course: ""
     }
   },
 
@@ -14,14 +15,23 @@ var AddNewRound = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault;
     var roundName = this.state.roundName.trim();
-    var courseId = 1;
+    var courseId = Number(this.state.selected_course);
     this.props.onSubmit({ name: roundName, course_id: courseId, user_ids: [1,2]});
     this.setState({ roundName: "", courseId: 0 });
   },
 
-  get
+  handleCourseSelection: function(e) {
+    this.setState({ selected_course: e.target.value});
+  },
 
   render() {
+    var select_options = [];
+    var course_holder = this.props.courses;
+    var select_options = Object.keys(course_holder).map(function (course) {
+      return(
+        <option value={course_holder[course]}>{course}</option>
+      )
+    });
     return (
       <form className="" onSubmit={this.handleSubmit}>
         <input
@@ -30,6 +40,10 @@ var AddNewRound = React.createClass({
           value={this.state.roundName}
           onChange={this.handleRoundNameChange}
         />
+        <select name="course" id="course" onChange={this.handleCourseSelection}>
+          <option disabled selected value> -- select an option -- </option>
+          {select_options}
+        </select>
         <button className="btn btn-primary" type="submit" value="Post">Add Round</button>
       </form>
     )

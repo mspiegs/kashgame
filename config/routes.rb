@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         match 'get_scores', to: 'rounds#get_scores', constraints: { format: 'json'}, via: :get
       end
       resources :scores, only: [:show, :index, :create]
+      resources :courses, only: [:index]
     end
   end
   # Example of regular route:

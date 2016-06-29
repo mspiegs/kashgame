@@ -3,12 +3,14 @@ var PlayerContainer = React.createClass({
   getInitialState: function() {
     return {
       rounds: [],
-      addNewRound: false
+      addNewRound: false,
+      courses: []
     }
   },
 
   componentDidMount: function() {
     $.getJSON('/api/v1/rounds.json', (response) => { this.setState({ rounds: response }) });
+    $.getJSON('/api/v1/courses.json', (response) => { this.setState({ courses: response }) });
   },
 
   getRounds: function() {
@@ -21,6 +23,10 @@ var PlayerContainer = React.createClass({
     } else if(this.state.addNewRound == false) {
       this.setState({addNewRound: true });
     }
+  },
+
+  getCourses: function() {
+    $.getJSON('/api/v1/courses.json', (response) => { this.setState({ courses: response }) });
   },
 
   submitNewRound: function(round) {
@@ -47,7 +53,7 @@ var PlayerContainer = React.createClass({
       <div>
         <Round clickRound={this.clickRound} rounds={this.state.rounds} />
         <p onClick={this.addNewRoundButton} >Add New Round</p>
-        {this.state.addNewRound ? <AddNewRound onSubmit={this.submitNewRound}/> : null}
+        {this.state.addNewRound ? <AddNewRound courses={this.state.courses} onSubmit={this.submitNewRound}/> : null}
       </div>
     )
   }
