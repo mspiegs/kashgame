@@ -1,10 +1,6 @@
 var Round = React.createClass({
-getInitialState() {
-    return { rounds: [] }
-  },
-
-  componentDidMount() {
-    $.getJSON('/api/v1/rounds.json', (response) => { this.setState({ rounds: response }) });
+  getInitialState() {
+    return { rounds: this.props.rounds }
   },
 
   clickRound(round){

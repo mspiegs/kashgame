@@ -39,6 +39,6 @@ class Api::V1::RoundsController < Api::V1::BaseController
   private
 
   def round_params
-    params.require(:round).permit(:id, :name, :date, :course_id)
+    params.permit(:id, :name, :date, :course_id)
   end
 end
