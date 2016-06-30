@@ -43,31 +43,34 @@ var GameView = React.createClass({
     )
   },
 
-  scoreNassau: function() {
-    var winner = {};
+  getHoleWinners: function() {
+    var winners = {};
     var hole_winner = [];
     this.props.holes.map((hole) => {
       var scores = [];
+      var names = [];
       this.props.users.map((user) => {
         var user_hash = {};
         user_hash["user"] = user.first_name;
         user_hash["score"] = this.props.scores[user.first_name][hole.id];
         scores.push(user_hash);
-        // if(this.props.scores[user.first_name][hole.id] != undefined){
-        //   if(hole_winner.length < 1){
-        //     hole_winner = user;
-        //   } else if(this.props.scores[hole_winner.first_name][hole.id] > this.props.scores[user.first_name][hole.id]) {
-        //     hole_winner = user;
-        //   } else {
-        //     hole_winner = hole_winner;
-        //   }
-        // }
       });
       var low_score = Math.min.apply(Math,scores.map(function(o){return o.score;}));
-      console.log(low_score);
-      var winner_name = scores.find(function(o){ return o.score == low_score; });
-      winner[hole.id] = winner_name['user'];
-      console.log(winner);
+      var winner_names = scores.filter(function(o){ return o.score == low_score; });
+      if(winner_names.length > 1){
+        winner_names.map((name) => {
+          names.push(name['user']);
+          winners[hole.id] = names;
+        });
+      } else {
+        winners[hole.id] = winner_names[0]['user'];
+      }
     });
+    return winners;
+  },
+
+  scoreNassau: function() {
+    var winners = this.getHoleWinners();
+    console.log(winners);
   }
 });
