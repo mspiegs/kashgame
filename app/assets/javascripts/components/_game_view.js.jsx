@@ -1,16 +1,39 @@
 var GameView = React.createClass({
 
-  componentDidMount: function() {
+  getInitialState: function() {
+    return {
+      running_score: {}
+    }
+  },
+
+  componentWillMount: function() {
     this.chooseGame();
   },
 
   chooseGame: function() {
     if(this.props.game === 'nassau') {
+      this.setState({running_score: {"nassau":{}}});
+      console.log(this.state.running_score);
       this.scoreNassau();
     }
   },
 
   render() {
+    var scoring_rows = this.props.users.map((user) => {
+      console.log(this.state.running_score);
+      var running_tally = this.state.running_score[user.first_name + " " + user.last_name];
+      var rows = this.props.holes.map((hole) => {
+        return (
+          <td>{running_tally[hole.id]}</td>
+        )
+      });
+      return (
+        <tr>
+          <td>{user.first_name}</td>
+          {rows}
+        </tr>
+      )
+    });
     var holes = this.props.holes.map((hole, id) => {
       return (
         <th key={id}>
@@ -37,7 +60,7 @@ var GameView = React.createClass({
           </tr>
         </thead>
         <tbody>
-          {users}
+          {scoring_rows}
         </tbody>
       </table>
     )
@@ -71,6 +94,40 @@ var GameView = React.createClass({
 
   scoreNassau: function() {
     var winners = this.getHoleWinners();
+    var running_score = {};
+    this.props.users.map((user) => {
+      running_score[user.first_name + " " + user.last_name] = {};
+    });
     console.log(winners);
+    var scorings = this.props.holes.map((hole) => {
+      var previous_hole = hole.id - 1;
+      this.props.users.map((user) => {
+        if(hole.id == 1){
+          if(typeof winners[hole.id] != "string"){
+            running_score[user.first_name + " " + user.last_name][hole.id] = 'AS';
+          } else {
+            if(winners[hole.id] == user.first_name){
+              running_score[user.first_name + " " + user.last_name][hole.id] = 1;
+            } else {
+              running_score[user.first_name + " " + user.last_name][hole.id] = -1;
+            }
+          }
+        } else {
+          if(typeof winners[hole.id] != "string"){
+            running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole];
+          } else {
+            if(winners[hole.id] == user.first_name){
+              var hole_id = hole.id + 1;
+              running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole] + 1;
+            } else {
+              var hold_id = hole.id - 1;
+              running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole] - 1;
+            }
+          }
+        }
+      });
+    });
+    console.log(running_score);
+    this.setState({running_score: this.state.running_score["nassau"] = running_score});
   }
 });

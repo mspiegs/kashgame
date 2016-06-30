@@ -22,7 +22,7 @@ var GamesContainer = React.createClass({
       <div>
         <div className="form-group">
           <select multiple className="form-control" name="golfers" id="golfer">
-            <option disabled selected value> -- select golfers -- </option>
+            <option disabled selected value> -- select game -- </option>
             <option onClick={this.handleSelectGame} data-game='nassau' value='nassau'>Nassau</option>
           </select>
         </div>
