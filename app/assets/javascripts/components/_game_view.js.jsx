@@ -23,9 +23,15 @@ var GameView = React.createClass({
       console.log(this.state.running_score);
       var running_tally = this.state.running_score[user.first_name + " " + user.last_name];
       var rows = this.props.holes.map((hole) => {
-        return (
-          <td>{running_tally[hole.id]}</td>
-        )
+        if(running_tally[hole.id] > 0){
+          return (
+            <td>{running_tally[hole.id] + " up"}</td>
+          )
+        } else if(running_tally[hole.id] < 0){
+          return (
+            <td>{Math.abs(running_tally[hole.id]) + " down"}</td>
+          )
+        }
       });
       return (
         <tr>
