@@ -15,7 +15,6 @@ var Round = React.createClass({
       var names = round.users.map((user, id) => {
         user_names.push(user.first_name + ' ' + user.last_name);
       });
-      console.log(user_names);
       return (
         <li key={id}><a href='#' onClick={this.clickRound.bind(this, round.id)}>{round.name}</a>{user_names.join(', ')}</li>
         )
