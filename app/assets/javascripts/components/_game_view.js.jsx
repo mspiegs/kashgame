@@ -18,7 +18,6 @@ var GameView = React.createClass({
   },
 
   scoreGame: function() {
-    console.log(this.scoreNassau());
     this.setState({running_score: this.scoreNassau()});
   },
 
@@ -29,28 +28,28 @@ var GameView = React.createClass({
       running_score[user.first_name + " " + user.last_name] = {};
     });
     var scorings = this.props.holes.map((hole) => {
-      var previous_hole = hole.id - 1;
+      var previous_hole = hole.number - 1;
       this.props.users.map((user) => {
-        if(hole.id == 1){
-          if(typeof winners[hole.id] != "string"){
-            running_score[user.first_name + " " + user.last_name][hole.id] = 'AS';
+        if(hole.number == 1){
+          if(typeof winners[hole.number] != "string"){
+            running_score[user.first_name + " " + user.last_name][hole.number] = 'AS';
           } else {
-            if(winners[hole.id] == user.first_name){
-              running_score[user.first_name + " " + user.last_name][hole.id] = 1;
+            if(winners[hole.number] == user.first_name){
+              running_score[user.first_name + " " + user.last_name][hole.number] = 1;
             } else {
-              running_score[user.first_name + " " + user.last_name][hole.id] = -1;
+              running_score[user.first_name + " " + user.last_name][hole.number] = -1;
             }
           }
         } else {
-          if(typeof winners[hole.id] != "string"){
-            running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole];
+          if(typeof winners[hole.number] != "string"){
+            running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole];
           } else {
-            if(winners[hole.id] == user.first_name){
-              var hole_id = hole.id + 1;
-              running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole] + 1;
+            if(winners[hole.number] == user.first_name){
+              var hole_number = hole.number + 1;
+              running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole] + 1;
             } else {
-              var hold_id = hole.id - 1;
-              running_score[user.first_name + " " + user.last_name][hole.id] = running_score[user.first_name + " " + user.last_name][previous_hole] - 1;
+              var hole_number = hole.number - 1;
+              running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole] - 1;
             }
           }
         }
@@ -63,13 +62,17 @@ var GameView = React.createClass({
     var scoring_rows = this.props.users.map((user) => {
       var running_tally = this.state.running_score[user.first_name + " " + user.last_name];
       var rows = this.props.holes.map((hole) => {
-        if(running_tally[hole.id] > 0){
+        if(running_tally[hole.number] > 0){
           return (
-            <td>{running_tally[hole.id] + " up"}</td>
+            <td className="greaterthan" data-key={hole.number}>{running_tally[hole.number] + "U"}</td>
           )
-        } else if(running_tally[hole.id] < 0){
+        } else if(running_tally[hole.number] < 0){
           return (
-            <td>{Math.abs(running_tally[hole.id]) + " down"}</td>
+            <td className="lessthan" data-key={hole.number}></td>
+          )
+        } else if(running_tally[hole.number] == 0){
+          return (
+            <td className="square" data-key={hole.number}>AS</td>
           )
         }
       });
