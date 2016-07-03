@@ -70,6 +70,7 @@ var ViewRound = React.createClass({
           <td>
             <form className="" onSubmit={this.handleSubmit}>
               <input
+                className="form-control"
                 type="text"
                 placeholder="#"
                 data-user={user.id}
