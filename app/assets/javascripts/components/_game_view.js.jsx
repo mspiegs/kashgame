@@ -10,6 +10,10 @@ var GameView = React.createClass({
     this.chooseGame();
   },
 
+  componentWillReceiveProps: function() {
+    this.chooseGame();
+  },
+
   chooseGame: function() {
     if(this.props.game === 'nassau') {
       this.setState({running_score: {"nassau":{}}});
@@ -27,6 +31,7 @@ var GameView = React.createClass({
     this.props.users.map((user) => {
       running_score[user.first_name + " " + user.last_name] = {};
     });
+    console.log(winners);
     var scorings = this.props.holes.map((hole) => {
       var previous_hole = hole.number - 1;
       this.props.users.map((user) => {
@@ -45,11 +50,21 @@ var GameView = React.createClass({
             running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole];
           } else {
             if(winners[hole.number] == user.first_name){
-              var hole_number = hole.number + 1;
+              if(running_score[user.first_name + " " + user.last_name][previous_hole] == 'AS'){
+                running_score[user.first_name + " " + user.last_name][hole.number] = 1;
+              } else {
               running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole] + 1;
+              }
             } else {
-              var hole_number = hole.number - 1;
-              running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole] - 1;
+              if(running_score[user.first_name + " " + user.last_name][previous_hole] == 'AS'){
+                running_score[user.first_name + " " + user.last_name][hole.number] = -1;
+              } else {
+                if(winners[hole.number] == 'no score'){
+                  running_score[user.first_name + " " + user.last_name][hole.number] = '--';
+                } else {
+                  running_score[user.first_name + " " + user.last_name][hole.number] = running_score[user.first_name + " " + user.last_name][previous_hole] - 1;
+                }
+              }
             }
           }
         }
@@ -61,7 +76,6 @@ var GameView = React.createClass({
   render() {
     var scoring_rows = this.props.users.map((user) => {
       var running_tally = this.state.running_score[user.first_name + " " + user.last_name];
-      console.log(running_tally);
       var rows = this.props.holes.map((hole) => {
         if(running_tally[hole.number] > 0){
           return (
