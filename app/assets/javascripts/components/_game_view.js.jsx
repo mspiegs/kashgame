@@ -61,6 +61,7 @@ var GameView = React.createClass({
   render() {
     var scoring_rows = this.props.users.map((user) => {
       var running_tally = this.state.running_score[user.first_name + " " + user.last_name];
+      console.log(running_tally);
       var rows = this.props.holes.map((hole) => {
         if(running_tally[hole.number] > 0){
           return (
@@ -70,9 +71,13 @@ var GameView = React.createClass({
           return (
             <td className="lessthan" data-key={hole.number}></td>
           )
-        } else if(running_tally[hole.number] == 0){
+        } else if(running_tally[hole.number] == 0 || running_tally[hole.number] == 'AS'){
           return (
             <td className="square" data-key={hole.number}>AS</td>
+          )
+        } else if(isNaN(running_tally[hole.number])){
+          return(
+            <td className="square" data-key={hole.number}>--</td>
           )
         }
       });

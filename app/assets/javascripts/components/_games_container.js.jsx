@@ -31,6 +31,8 @@ var GamesContainer = React.createClass({
           names.push(name['user']);
           winners[hole.id] = names;
         });
+      } else if(winner_names.length == 0){
+        winners[hole.id] = 'no score';
       } else {
         winners[hole.id] = winner_names[0]['user'];
       }
