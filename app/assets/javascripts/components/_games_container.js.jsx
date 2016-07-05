@@ -8,7 +8,8 @@ var GamesContainer = React.createClass({
 
   handleSelectGame: function(e){
     e.preventDefault();
-    var selected_game = e.target.getAttribute('data-game');
+    var selected_game = e.target.value;
+    console.log(selected_game);
     this.setState({ game: this.state.games.push(selected_game)});
   },
 
@@ -48,14 +49,43 @@ var GamesContainer = React.createClass({
         <GameView getHoleWinners={this.getHoleWinners} scoreNassau={this.scoreNassau} holes={this.props.holes} users={this.props.users} scores={this.props.scores} game={game} key={id} />
       )
     });
+
+    var game_forms = this.state.games.map((game, id) => {
+      <AddGameForm game={game}/>
+    });
     return (
       <div>
         <div className="form-group">
-          <select multiple className="form-control" name="golfers" id="golfer">
+          <select className="form-control" name="golfers" id="golfer" onChange={this.handleSelectGame}>
             <option disabled selected value> -- select game -- </option>
-            <option onClick={this.handleSelectGame} data-game='nassau' value='nassau'>Nassau</option>
+            <option data-game='nassau' value='nassau'>Nassau</option>
+            <option data-game='wolf' value='wolf'>Wolf</option>
           </select>
         </div>
+        {game_forms}
+        <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Launch demo modal
+        </button>
+
+
+        <div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div className="modal-body">
+                ...
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" className="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {games}
       </div>
     )
