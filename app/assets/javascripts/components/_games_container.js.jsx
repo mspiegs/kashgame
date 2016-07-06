@@ -2,15 +2,20 @@ var GamesContainer = React.createClass({
 
   getInitialState: function() {
     return {
-      games: []
+      games: [],
+      new_game: ''
     }
   },
 
-  handleSelectGame: function(e){
+  handleSelectGame: function(data, e){
     e.preventDefault();
-    var selected_game = e.target.value;
-    console.log(selected_game);
+    var selected_game = data.game_type;
     this.setState({ game: this.state.games.push(selected_game)});
+  },
+
+  handleNewGame: function(e){
+    var selected_game = e.target.value;
+    this.setState({ new_game: selected_game });
   },
 
   getHoleWinners: function() {
@@ -50,13 +55,17 @@ var GamesContainer = React.createClass({
       )
     });
 
-    var game_forms = this.state.games.map((game, id) => {
-      <AddGameForm game={game}/>
-    });
+    var game_forms = function() {
+      console.log(this.state.new_game);
+      return(
+        <AddGameForm game={this.state.new_game} handleSelectGame={this.handleSelectGame}/>
+      )
+    }
+
     return (
       <div>
         <div className="form-group">
-          <select className="form-control" name="golfers" id="golfer" onChange={this.handleSelectGame}>
+          <select className="form-control" name="golfers" id="golfer" onChange={this.handleNewGame}>
             <option disabled selected value> -- select game -- </option>
             <option data-game='nassau' value='nassau'>Nassau</option>
             <option data-game='wolf' value='wolf'>Wolf</option>
