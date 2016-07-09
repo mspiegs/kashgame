@@ -13,7 +13,7 @@ var AddGameForm = React.createClass({
   handleSubmit: function(e) {
     var data = { game_type: this.state.game_type, front_9_bet: this.state.front_9, back_9_bet: this.state.back_9, overall_bet: this.state.overall_18, press: this.state.press};
     $.ajax({
-      url: '/api/v1/scores',
+      url: '/api/v1/games',
       dataType: 'json',
       type: 'POST',
       data: data,

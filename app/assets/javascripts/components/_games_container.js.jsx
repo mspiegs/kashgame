@@ -7,10 +7,9 @@ var GamesContainer = React.createClass({
     }
   },
 
-  handleSelectGame: function(data, e){
-    e.preventDefault();
+  handleSelectGame: function(data){
     var selected_game = data.game_type;
-    this.setState({ game: this.state.games.push(selected_game)});
+    this.setState({ games: this.state.games.concat([this.state.new_game]), new_game: ''});
   },
 
   handleNewGame: function(e){
@@ -49,18 +48,18 @@ var GamesContainer = React.createClass({
 
 
   render() {
-    var games = this.state.games.map((game, id) => {
+    var user_game = this.state.games.map((game, id) => {
+      console.log(game);
       return (
         <GameView getHoleWinners={this.getHoleWinners} scoreNassau={this.scoreNassau} holes={this.props.holes} users={this.props.users} scores={this.props.scores} game={game} key={id} />
       )
     });
 
-    var game_forms = function() {
-      console.log(this.state.new_game);
-      return(
-        <AddGameForm game={this.state.new_game} handleSelectGame={this.handleSelectGame}/>
-      )
+    var game_form;
+    if(this.state.new_game != ''){
+      game_form = <AddGameForm game={this.state.new_game} handleSelectGame={this.handleSelectGame}/>
     }
+
 
     return (
       <div>
@@ -71,7 +70,7 @@ var GamesContainer = React.createClass({
             <option data-game='wolf' value='wolf'>Wolf</option>
           </select>
         </div>
-        {game_forms}
+        {game_form}
         <button type="button" className="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
           Launch demo modal
         </button>
@@ -95,7 +94,7 @@ var GamesContainer = React.createClass({
           </div>
         </div>
 
-        {games}
+        {user_game}
       </div>
     )
   }
