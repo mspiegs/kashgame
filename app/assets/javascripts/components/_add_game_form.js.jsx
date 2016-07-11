@@ -68,6 +68,20 @@ var AddGameForm = React.createClass({
           </form>
         );
         break;
+      case 'wolf':
+        return (
+          <form onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <input className='form-control' type="text" placeholder="Name" onChange={this.changeType}></input>
+              <input className='form-control' type="text" placeholder="Front 9 bet" onChange={this.changeFront9}></input>
+              <input className='form-control' type="text" placeholder="Back 9 bet" onChange={this.changeBack9}></input>
+              <input className='form-control' type="text" placeholder="Overall 18 bet" onChange={this.changeOverall18}></input>
+              <label>Auto Press?</label><input className='' type="checkbox" onChange={this.changePress}></input>
+            </div>
+            <button className="btn btn-primary" type="submit" value="Post">Add Game</button>
+          </form>
+        );
+        break;
     }
   }
 });

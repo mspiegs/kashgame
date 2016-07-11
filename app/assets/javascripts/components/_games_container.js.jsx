@@ -49,7 +49,6 @@ var GamesContainer = React.createClass({
 
   render() {
     var user_game = this.state.games.map((game, id) => {
-      console.log(game);
       return (
         <GameView getHoleWinners={this.getHoleWinners} scoreNassau={this.scoreNassau} holes={this.props.holes} users={this.props.users} scores={this.props.scores} game={game} key={id} />
       )
