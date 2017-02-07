@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :scores
   end
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :rounds, only: [:index, :show, :create] do
         match 'get_scores', to: 'rounds#get_scores', constraints: { format: 'json'}, via: :get
