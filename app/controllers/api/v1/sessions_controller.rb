@@ -15,4 +15,9 @@ class Api::V1::SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    current_user.destroy
+    head 204
+  end
+
 end
