@@ -25,6 +25,10 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def index
+    respond_with User.all
+  end
+
   def destroy
     user = User.find(params[:id])
     user.destroy
