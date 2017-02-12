@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :following, through: :golf_buddies, source: :followed
   has_many :followers, through: :invited_me_golf_buddies
 
+  before_create :generate_authentication_token!
+
   def golf_with(other_user)
     golf_buddies.create(followed_id: other_user.id)
   end
@@ -25,5 +27,11 @@ class User < ActiveRecord::Base
 
   def golfs_with?(other_user)
     following.include?(other_user)
+  end
+
+  def generate_authentication_token!
+    begin
+      self.auth_token = Devise.friendly_token
+    end while self.class.exists?(auth_token: auth_token)
   end
 end

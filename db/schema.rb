@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629171029) do
+ActiveRecord::Schema.define(version: 20170207024119) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
@@ -110,8 +110,10 @@ ActiveRecord::Schema.define(version: 20160629171029) do
     t.string   "last_sign_in_ip"
     t.string   "access_token"
     t.string   "username"
+    t.string   "auth_token",             default: ""
   end
 
+  add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
