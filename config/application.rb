@@ -24,8 +24,10 @@ module GolfBet
     config.active_record.raise_in_transactional_callbacks = true
 
     config.action_dispatch.default_headers = {
-        'Access-Control-Allow-Origin' => 'http://localhost:8100/',
-        'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
+        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Methods' => 'POST, PUT, PATCH, DELETE, GET, OPTIONS',
+        'Access-Control-Request-Method' => '*',
+        'Access-Control-Allow-Headers' => 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
       }
   end
 end
