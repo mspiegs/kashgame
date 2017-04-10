@@ -45,7 +45,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
       @round.users << u
     end
 
-    respond_with :api, :vq, @round
+    respond_with :api, :v1, @round
   end
 
   private
