@@ -210,7 +210,11 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
+<<<<<<< HEAD
    ruby 2.2.6p396
+=======
+   ruby 2.2.2p95
+>>>>>>> 1f27b72b198692edd29a4a6f0506e0724bb349ce
 
 BUNDLED WITH
    1.14.6
