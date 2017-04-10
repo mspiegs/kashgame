@@ -36,6 +36,15 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with scores_hash
   end
 
+  def add_players
+    @round = Round.find(params[:round_id])
+    user_ids = params[:user_ids]
+    user.ids.each do |player|
+      u = User.find(player)
+      @round.users << u
+    end
+  end
+
   private
 
   def round_params

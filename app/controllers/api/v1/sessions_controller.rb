@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
     user_password = params[:password]
     user_email = params[:email]
     user = user_email.present? && User.find_by(email: user_email)
-
+    putd user.email
     if user.valid_password? user_password
       sign_in user, store: false
       user.generate_authentication_token!
