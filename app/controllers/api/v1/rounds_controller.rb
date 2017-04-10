@@ -44,6 +44,8 @@ class Api::V1::RoundsController < Api::V1::BaseController
       u = User.find(player)
       @round.users << u
     end
+
+    respond_with :api, :vq, @round
   end
 
   private
