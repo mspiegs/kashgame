@@ -41,8 +41,10 @@ class Api::V1::RoundsController < Api::V1::BaseController
     user_ids = params[:user_ids]
     user_ids = eval(user_ids)
     user_ids.each do |player|
-      u = User.find(player)
-      @round.users << u
+      unless @round.user_ids.include?(player)
+        u = User.find(player)
+        @round.users << u
+      end
     end
 
     respond_with :api, :v1, @round
