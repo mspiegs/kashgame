@@ -36,6 +36,12 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with scores_hash
   end
 
+  def get_holes
+    @round = Round.find(params[:round_id])
+    @holes = @round.course.holes
+    respond_with @holes
+  end
+
   def add_players
     @round = Round.find(params[:round_id])
     user_ids = params[:user_ids]
