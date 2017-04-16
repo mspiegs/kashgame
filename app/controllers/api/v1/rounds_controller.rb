@@ -36,6 +36,17 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with scores_hash
   end
 
+  def set_scores
+    @score = Score.where(round_id: params[:round.id], user_id: params[:user_id], hole_id: params[:hole_id])
+    if @score.empty?
+      score = Score.new(round_id: params[:round.id], user_id: params[:user_id], hole_id: params[:hole_id], number: params[:score_number])
+      score.save
+    else
+      @score.update(number: params[:score_number])
+    end
+    respond_with @score
+  end
+
   def get_holes
     @round = Round.find(params[:round_id])
     @holes = @round.course.holes
