@@ -37,7 +37,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
   end
 
   def set_score
-    @score = Score.where(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id])
+    @score = Score.where(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id]).first
     if @score.empty?
       score = Score.new(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id], number: params[:score_number])
       score.save
