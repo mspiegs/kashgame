@@ -43,7 +43,9 @@ class Api::V1::RoundsController < Api::V1::BaseController
     @round.course.holes.each do |hole|
       @round.users.each do |player|
         score = player.scores.where(round_id: @round.id, hole_id: hole.id).first
-        player_scores[player.first_name] = score.number
+        if score != nil
+          player_scores[player.first_name] = score.number
+        end
       end
       scores_hash[hole.number] = player_scores
     end
