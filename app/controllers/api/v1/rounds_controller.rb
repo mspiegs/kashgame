@@ -53,6 +53,11 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with @holes
   end
 
+  def get_games
+    @round = Round.find(params[:round_id])
+    respond_with @round.games
+  end
+
   def add_players
     @round = Round.find(params[:round_id])
     user_ids = params[:user_ids]
