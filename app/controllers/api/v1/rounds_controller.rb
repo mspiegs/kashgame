@@ -36,6 +36,18 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with scores_hash
   end
 
+  def get_full_scores
+    @round = Round.find(params[:round_id])
+    scores_hash = {}
+    @round.users.each do |player|
+      scores = player.scores.where(round_id: @round.id)
+      player_scores = {}
+      scores.each {|score| player_scores[player.first_name] = score.number  }
+      scores_hash[Hole.find(score.hole_id).number] = player_scores
+    end
+
+  end
+
   def set_score
     @score = Score.where(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id])
     if @score.empty?

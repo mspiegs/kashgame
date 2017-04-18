@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :users, :only => [:show, :create, :update, :destroy, :index]
       resources :rounds, only: [:index, :show, :create] do
         match 'get_scores', to: 'rounds#get_scores', constraints: { format: 'json'}, via: :get
+        match 'get_full_scores', to: 'rounds#get_full_scores', constraints: { format: 'json'}, via: :get
         match 'get_holes', to: 'rounds#get_holes', constraints: { format: 'json'}, via: :get
         match 'add_players', to: 'rounds#add_players', via: :post
         match 'set_score', to: 'rounds#set_score', via: :post
