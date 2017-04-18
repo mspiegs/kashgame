@@ -39,10 +39,10 @@ class Api::V1::RoundsController < Api::V1::BaseController
   def get_full_scores
     @round = Round.find(params[:round_id])
     scores_hash = {}
+    player_scores = {}
     @round.course.holes.each do |hole|
       @round.users.each do |player|
         score = player.scores.where(round_id: @round.id, hole_id: hole.id).first
-        player_scores = {}
         player_scores[player.first_name] = score.number
       end
       scores_hash[hole.number] = player_scores
