@@ -48,6 +48,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
         end
       end
       scores_hash[hole.number] = player_scores
+      player_scores = {}
     end
     respond_with scores_hash
   end
