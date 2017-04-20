@@ -72,7 +72,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
 
   def get_games
     @round = Round.find(params[:round_id])
-    respond_with @round.games
+    respond_with @round.games, include: {:users => {}}
   end
 
   def add_players
