@@ -11,12 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207024119) do
+ActiveRecord::Schema.define(version: 20170421032031) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "blue_tees_slope"
+    t.integer  "blue_tees_rating"
+    t.integer  "black_tees_slope"
+    t.integer  "black_tees_rating"
+    t.integer  "white_tees_slope"
+    t.integer  "white_tees_rating"
+    t.integer  "red_tees_slope"
+    t.integer  "red_tees_rating"
+    t.integer  "gold_tees_slope"
+    t.integer  "gold_tees_rating"
+    t.integer  "yello_tees_slope"
+    t.integer  "yello_tees_rating"
   end
 
   create_table "games", force: :cascade do |t|
