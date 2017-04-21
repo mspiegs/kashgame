@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         match 'add_players', to: 'rounds#add_players', via: :post
         match 'set_score', to: 'rounds#set_score', via: :post
         match 'get_games', to: 'rounds#get_games', constraints: { format: 'json'}, via: :get
-        match 'get_tees', to: 'rounds#get_games', constraints: { format: 'json'}, via: :get
+        match 'get_tees', to: 'rounds#get_tees', constraints: { format: 'json'}, via: :get
       end
       resources :scores, only: [:show, :index, :create]
       resources :courses, only: [:index]
