@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
                                      dependent: :destroy
   has_many :following, through: :golf_buddies, source: :followed
   has_many :followers, through: :invited_me_golf_buddies
+  has_many :roundusers
+  has_many :rounds, through: :roundusers
 
   before_create :generate_authentication_token!
 
