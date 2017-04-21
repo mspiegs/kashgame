@@ -89,6 +89,17 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with :api, :v1, @round
   end
 
+  def get_tees
+    player_tees_hash = {}
+    @round = Round.find(params[:round_id])
+    @round.roundusers.each do |rounduser|
+      user = User.find(rounduser.user_id)
+      player_tees_hash[user.first_name] = rounduser.tees
+    end
+
+    respond_with player_tees_hash
+  end
+
   private
 
   def round_params
