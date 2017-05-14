@@ -61,7 +61,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
     else
       @score.first.update(number: params[:score_number])
     end
-    respond_with @score.first
+    respond_with @score
   end
 
   def get_holes
