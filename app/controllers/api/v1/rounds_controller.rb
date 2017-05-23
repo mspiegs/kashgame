@@ -87,8 +87,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
 
   def add_players
     @round = Round.find(params[:round_id])
-    user_ids = params[:user_ids]
-    user_ids = eval(user_ids)
+    user_ids = params[:user_ids].split(',').map(&:to_i)
     user_ids.each do |player|
       unless @round.user_ids.include?(player)
         u = User.find(player)
