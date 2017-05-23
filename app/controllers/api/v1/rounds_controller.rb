@@ -75,6 +75,15 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with @round.games, include: {:users => {}}
   end
 
+  def add_game
+    @round = Round.find(params[:round_id])
+    game = Game.create(name: params[:name], game_type: params[:game_type])
+    users = params[:user_ids]
+    users.each do |user|
+      game.users << User.find(user.id)
+    end
+  end
+
   def add_players
     @round = Round.find(params[:round_id])
     user_ids = params[:user_ids]
