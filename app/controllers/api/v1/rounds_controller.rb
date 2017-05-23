@@ -79,8 +79,8 @@ class Api::V1::RoundsController < Api::V1::BaseController
     @round = Round.find(params[:round_id])
     game = Game.create(name: params[:name], game_type: params[:game_type])
     users = params[:user_ids].split(',').map(&:to_i)
-    users.each do |user|
-      game.users << User.find(user.id)
+    users.each do |user_id|
+      game.users << User.find(user_id)
     end
   end
 
