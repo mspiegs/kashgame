@@ -82,7 +82,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
     users.each do |user_id|
       game.users << User.find(user_id)
     end
-    respond_with games, json: game
+    respond_with game, json: game
   end
 
   def add_players
