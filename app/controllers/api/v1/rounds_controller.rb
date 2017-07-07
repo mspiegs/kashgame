@@ -110,7 +110,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
   end
 
   def get_details
-    @round = Round.find(params[:id])
+    @round = Round.find(params[:round_id])
     respond_to do |format|
       format.json { render json: round_details_as_json(@round)}
     end
