@@ -109,7 +109,21 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with player_tees_hash
   end
 
+  def get_details
+    @round = Round.find(params[:id])
+    respond_to do |format|
+      format.json { render json: round_details_as_json(@round)}
+    end
+  end
+
   private
+
+  def round_details_as_json(round)
+    list = {
+      name: round.name,
+      users: round.users
+    }
+  end
 
   def round_params
     params.permit(:id, :name, :date, :course_id)
