@@ -121,7 +121,9 @@ class Api::V1::RoundsController < Api::V1::BaseController
   def round_details_as_json(round)
     list = {
       name: round.name,
-      users: round.users
+      users: round.users,
+      course: round.course,
+      holes: round.course.holes
     }
   end
 
