@@ -126,12 +126,20 @@ class Api::V1::RoundsController < Api::V1::BaseController
       scores.each {|score| player_scores[Hole.find(score.hole_id).number] = score.number  }
       scores_hash[player.first_name] = player_scores
     end
+
+    player_tees_hash = {}
+    round.roundusers.each do |rounduser|
+      user = User.find(rounduser.user_id)
+      player_tees_hash[user.first_name] = rounduser.tees
+    end
     list = {
       name: round.name,
       users: round.users,
       course: round.course,
       holes: round.course.holes,
-      scores: scores_hash
+      scores: scores_hash,
+      tees: player_tees_hash,
+      golf_buddies: current_user.following
     }
   end
 
