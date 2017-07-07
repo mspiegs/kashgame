@@ -119,11 +119,19 @@ class Api::V1::RoundsController < Api::V1::BaseController
   private
 
   def round_details_as_json(round)
+    scores_hash = {}
+    round.users.each do |player|
+      scores = player.scores.where(round_id: round.id)
+      player_scores = {}
+      scores.each {|score| player_scores[Hole.find(score.hole_id).number] = score.number  }
+      scores_hash[player.first_name] = player_scores
+    end
     list = {
       name: round.name,
       users: round.users,
       course: round.course,
-      holes: round.course.holes
+      holes: round.course.holes,
+      scores: scores_hash
     }
   end
 
