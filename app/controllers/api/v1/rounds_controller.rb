@@ -95,7 +95,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
       end
     end
 
-    respond_with :api, :v1, @round
+    respond_with :api, :v1, @round, include: {:users => {}, :course => {include: :holes}}
   end
 
   def get_tees
