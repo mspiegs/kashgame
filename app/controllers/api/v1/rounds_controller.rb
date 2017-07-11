@@ -77,7 +77,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
 
   def add_game
     @round = Round.find(params[:round_id])
-    game = Game.create(name: params[:name], game_type: params[:game_type], round_id: @round.id)
+    game = Game.create(name: params[:name], game_type: params[:game_type], round_id: @round.id, point_value: params[:point_value])
     users = params[:user_ids].split(',').map(&:to_i)
     users.each do |user_id|
       game.users << User.find(user_id)
