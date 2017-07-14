@@ -65,7 +65,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
       teams_hash[hole.id] = hole_team_hash
     end
 
-    response_with teams_hash
+    respond_with teams_hash
   end
 
   def set_score
