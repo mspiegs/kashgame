@@ -62,7 +62,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
       scores.each do |score|
         hole_team_hash[score.user_id] = score.team
       end
-      teams_hash[hole.id] = hole_team_hash
+      teams_hash[hole.number] = hole_team_hash
     end
 
     respond_with teams_hash
