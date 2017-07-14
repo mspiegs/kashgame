@@ -56,10 +56,10 @@ class Api::V1::RoundsController < Api::V1::BaseController
   def set_score
     @score = Score.where(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id])
     if @score.empty?
-      score = Score.new(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id], number: params[:score_number])
+      score = Score.new(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id], number: params[:score_number], team: params[:team])
       score.save
     else
-      @score.first.update(number: params[:score_number])
+      @score.first.update(number: params[:score_number], team: params[:team])
     end
     respond_with @score.first, json: @score.first
   end
