@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         match 'get_holes', to: 'rounds#get_holes', constraints: { format: 'json'}, via: :get
         match 'add_players', to: 'rounds#add_players', via: :post
         match 'set_score', to: 'rounds#set_score', via: :post
+        match 'set_teams', to: 'rounds#set_teams', via: :post
         match 'get_games', to: 'rounds#get_games', constraints: { format: 'json'}, via: :get
         match 'get_tees', to: 'rounds#get_tees', constraints: { format: 'json'}, via: :get
         match 'get_teams', to: 'rounds#get_teams', constraints: { format: 'json'}, via: :get

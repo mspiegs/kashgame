@@ -83,6 +83,17 @@ class Api::V1::RoundsController < Api::V1::BaseController
     respond_with @score.first, json: @score.first
   end
 
+  def set_teams
+    @score = Score.where(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id])
+    if @score.empty?
+      score = Score.new(round_id: params[:round_id], user_id: params[:user_id], hole_id: params[:hole_id], team: params[:team])
+      score.save
+    else
+      @score.first.update( team: params[:team])
+    end
+    respond_with @score.first, json: @score.first
+  end
+
   def get_holes
     @round = Round.find(params[:round_id])
     @holes = @round.course.holes
