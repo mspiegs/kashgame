@@ -30,7 +30,11 @@ class Api::V1::RoundsController < Api::V1::BaseController
     @round.users.each do |player|
       scores = player.scores.where(round_id: @round.id)
       player_scores = {}
-      scores.each {|score| player_scores[Hole.find(score.hole_id).number] = score.number  }
+      scores.each do |score|
+        if score.number?
+          player_scores[Hole.find(score.hole_id).number] = score.number
+        end
+      end
       scores_hash[player.first_name] = player_scores
     end
     respond_with scores_hash
