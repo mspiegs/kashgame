@@ -177,7 +177,8 @@ class Api::V1::RoundsController < Api::V1::BaseController
       holes: round.course.holes,
       scores: scores_hash,
       tees: player_tees_hash,
-      golf_buddies: current_user.following
+      golf_buddies: current_user.following,
+      games: round.games, include: { :users => {}}
     }
   end
 
