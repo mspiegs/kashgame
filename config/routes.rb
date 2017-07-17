@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
       resources :scores, only: [:show, :index, :create]
       resources :courses, only: [:index]
+      match 'hole_value', to: 'games#set_hole_value', via: :post
       match 'golf_buddies', to: 'players#my_golf_buddies', constraints: { format: 'json'}, via: :get
     end
   end
