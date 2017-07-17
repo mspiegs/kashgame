@@ -1,6 +1,6 @@
-class AddGamesHolesTable < ActiveRecord::Migration
+class AddGameHolesTable < ActiveRecord::Migration
   def change
-  	create_table :games_holes do |t|
+  	create_table :gameholes do |t|
       t.integer :game_id
       t.integer :hole_id
       t.float :hole_value
