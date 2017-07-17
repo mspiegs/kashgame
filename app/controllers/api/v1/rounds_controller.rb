@@ -116,7 +116,7 @@ class Api::V1::RoundsController < Api::V1::BaseController
       rounduser.tees = params[:tees]
       rounduser.save
     end
-    if params[:game_type] == 'hammer'
+    if params[:game_type] == 'Hammer'
       @round.course.holes.each do |hole|
         game.holes << hole
       end
