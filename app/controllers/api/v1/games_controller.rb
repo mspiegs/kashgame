@@ -5,4 +5,10 @@ class Api::V1::GamesController < Api::V1::BaseController
 
 		respond_with @hole, json: @hole
 	end
+
+	def get_hole_values
+		@game = Game.find(params[:game_id])
+
+		respond_with @game.gameholes, json: @game.gameholes
+	end
 end
