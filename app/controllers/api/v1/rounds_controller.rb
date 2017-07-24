@@ -11,6 +11,12 @@ class Api::V1::RoundsController < Api::V1::BaseController
     @users = User.find(params[:user_ids])
     @round = Round.create(round_params)
     @round.users << @users
+    if params[:tees] != ''
+      @round.roundusers.each do |rounduser|
+        rounduser.tees = params[:tees]
+        rounduser.save
+      end
+    end
     respond_with :api, :v1, @round
   end
 
